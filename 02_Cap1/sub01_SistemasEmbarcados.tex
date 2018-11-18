@@ -1,74 +1,63 @@
 \section{\textbf{Sistemas Embarcados}}
 \label{sec:SistemasEmbarcados}
-\subsection{Conceitos Básicos}
+\subsection{\textbf{Conceitos Preliminares}}
+\label{subsec:sub01_Conceitos}
 
-\subsection{Definição de Sistemas Embarcados}
+\subsection{\textbf{Definição de Sistemas Embarcados}}
 \label{subsec:sub01_Definicao}
+Um sistema embarcado pode ser definido, como um sistema computacional, interno a um dispositivo eletrônico, que executa, repetitivamente, uma única função, ou um pequeno conjunto de funções, de maneira que, frequentemente, a forma que estas tarefas são executadas não é percebida pelo seu usuário, assim como expõe \citeonline[p.~1]{Chatto2013}, mas sim os resultados da realização das mesmas. Já o termo “sistema embarcado” deriva do fato que estes sistemas são totalmente integrados e enclausurados pelos sistemas a que servem ou controlam, dessa forma, com este enclausuramento, tem-se como consequência que estes sistemas se tornam especializados em realizar tarefas específicas à operação do dispositivo que o contém, \cite[p.~554]{Springer2009}. Essa especialização é notada no software embarcado, também chamado de firmware, que se torna específico ao hardware utilizado, e o próprio hardware, que tem características que o diferem de um hardware de sistema de propósito geral. 
 
-\subsection{\underline{Características}}
-\label{subsec:sec1_Triangulacao}
+Com o objetivo de deixar mais claro o que essa falta de generalidade relacionada a funcionalidade de um sistema embarcado implica, \citeonline[p.~2]{Steve2003} complementa ao dizer que tais sistemas não são construídos de forma a serem programados pelo usuário final, não da forma que um sistema genérico possibilita, pois, o usuário final de um sistema embarcado não pode alterar a funcionalidade do sistema, seja adicionando, ou mesmo retirando, software. Observe, por exemplo, que um computador pessoal, um exemplo de sistema de propósito geral, pode funcionar como um processador de texto e, em um instante, começar a funcionar como um navegador web, observe ainda que, é permitido, ao usuário, adicionar diversas funcionalidades ao sistema, sem que o sistema tenha vindo configurado para execução da nova funcionalidade de fábrica. 
 
-As técnicas de triangulação utilizam medidas de distâncias~(multi-lateração) ou ângulos~(multi-angulação) entre o MS e os setores de referência para estimar a localização do MS~\cite{LocationMethodsSurvey2007}.
+\subsection{\textbf{Características}}
+\label{subsec:sub01_Caracteristicas}
+Algumas características dos sistemas embarcados serão descritas a seguir, que é uma breve explanação sobre alguns pontos apresentados por \citeonline[p.~2-4]{Chatto2013}, importante notar que a exibição de todas estas características descritas não é obrigatória, porém, são muito comuns e importantes nestes sistemas, e, geralmente, alguma delas se sobressai, dependendo da finalidade do sistema em questão.
 
-Todos os métodos de triangulação presumem condições de propagação com linha de visada~(LOS - \textit{Line of Sight}) entre o MS e setores de referência. A propagação por múltiplos percursos e a presença de obstáculos entre o MS e os setores de referência podem corromper as medidas angulares, de tempo e de atenuação no percurso. Assim, a propagação sem linha de visada~(NLOS - \textit{Non Line of Sight}) é a principal fonte de erro para esses métodos. Como a propagação NLOS predomina em ambientes urbanos, a precisão dos métodos de triangulação pode ser seriamente comprometida nesses ambientes.
+ A interação com o ambiente é uma característica presente na maioria dos sistemas embarcados, esta é feita por meio de sensores, que coletam dados do ambiente, e, ou, de atuadores, que atuam em alguns parâmetros do ambiente. Através da interação com o ambiente, os sistemas embarcados podem ser sistemas reativos, ou seja, possuir interação contínua e reagir a eventos do ambiente, onde o sistema pode, por exemplo, apresentar estados que transitam em resposta à ocorrência de eventos, ou reagir, com o objetivo de controlar algum tipo de variável do ambiente. Pode-se citar ainda, como uma característica, a mistura de componentes digitais e analógicos, que é inerente a interação com o ambiente. O ambiente, cuja natureza é predominantemente contínua. Portanto, frequentemente, a natureza digital dos computadores se mescla com a natureza analógica do ambiente para a implementação de um sistema embarcado.
+ 
+A interface com o usuário, comumente, é mais simples que a encontrada em sistemas mais genéricos, composta por componentes que geralmente causam a ilusão ao usuário de falta de computação, como LEDs e botões.
 
-Além da propagação NLOS, outro fator que limita a precisão dos métodos de triangulação é a resolução finita das medidas realizadas na interface aérea e que são utilizadas no cálculo de posição: tempo, RSS e ângulo de chegada. A resolução da medida de RSS depende de especificações da interface rádio. Em redes GSM e WCDMA, por exemplo, os valores de RSS são reportados pelo MS em passos de $1$ dB~\cite{ETSI100911}~\cite{3GPP25133}. A resolução da medida angular depende da configuração dos conjuntos de antenas diretivas necessários para estimar o ângulo de chegada, bem como do diagrama de irradiação das antenas utilizadas no conjunto~\cite{Rappaport1997}.
+A limitação do sistema, este que é restringido de diversos ângulos. Nota-se que, um sistema embarcado, pela sua própria natureza limitada, possui limitações de performance e de consumo de energia, que influenciam na escolha do dispositivo alvo. Como exemplo, o volume físico é uma limitação de projeto muito comum, dentre tantas outras limitações específicas de cada projeto, com sua relevância intrínseca ao projeto, como robustez a variação de temperatura, resistência a radiação, ou vibração mecânica. De fato, nenhum sistema é de todo livre de restrições, porém, nos sistemas embarcados, essas restrições são muito mais evidentes e são, em certos casos, consequência de requisitos do sistema.
 
-\subsubsection{Multi-lateração Circular utilizando RTT}
-Um valor de RTT pode ser convertido em uma estimativa de distância, através da equação~(\ref{eq:dist}). O lugar geométrico dos pontos que distam $\hat{d}_{i}$ da $i$-ésima célula de referência é um círculo de raio $\hat{d}_{i}$ centrado na posição desta célula. Esse círculo define o conjunto dos pontos no plano que contém a possível localização do MS, sendo denominado linha de posição (LOP - \textit{Line of Position}).
+A confiabilidade do sistema, já que, como um sistema embarcado tem a capacidade de funcionar autonomamente, estes são empregados em diversas atividades de natureza crítica, o que exige, frequentemente, disponibilidade e manutenibilidade do sistema e também segurança da informação processada pelo sistema. 
 
-\begin{equation}
-\label{eq:dist}
-\hat{d}_{i}= \frac{c \cdot \textrm{T}_{s} \cdot \textrm{RTT}_{i}}{2}
-\end{equation}
+Relacionado à confiabilidade, está também a característica de processamento em tempo real, que se refere a exigência de resposta em um tempo fixo e finito de tempo de uma requisição. O não cumprimento desta exigência pode levar a consequências catastróficas em sistemas de tempo real. 
 
-A medida de RTT tem resolução igual ao período de um símbolo. Porém, por razões de simplificação, utiliza-se a representação por meio de LOPs circulares, com raio igual ao raio interno no anel circular. Quanto menor o período de símbolo, menor é a largura do anel circular e mais este anel aproxima-se de um círculo. Assim, em sistemas banda larga, como o WCDMA, a utilização de LOPs circulares não introduz erro significativo~\cite{CidRttForcedHandover}.
+\subsection{\textbf{Elementos de um Sistema Embarcado}}
+\label{subsec:sub01_Elementos}
+Um sistema embarcado, geralmente, é um sistema microprocessado, isto significa que o mesmo, geralmente, se utiliza de uma unidade central para o processamento, o processador. Este processador pode ser implementado através de dispositivos de hardware programável, como um FPGA, ou se utilizar de um processador dedicado disponível no mercado, ou ainda, caso não se utilize um processador formal, um sistema embarcado poderia ser ainda implementado com a utilização de circuitos lógicos digitais, sem perca de sua condição de sistema embarcado. Porém, essas abordagens são geralmente mais complexas, e exigem um tempo de implementação maior do que o gasto quando um dispositivo com um processador pronto, que atende os requisitos do projeto, está disponível. Com esta visão, os microcontroladores aparentam ser grandes aliados dos sistemas embarcados.
 
-\section{\textbf{Quadro Sinótico}}
-\label{sec:Cap1Quadro}
+\paragraph{\textbf{Microcontrolador -}}
+Um microcontrolador, segundo \citeonline{Steve2003}, é um dispositivo que é autocontido e possui processador, memória e periféricos em um mesmo chip, o que, para projetistas de sistemas embarcados é de grande ajuda, já que a utilização destes elementos no sistema é feita através de software, poupando o projetista de futuros e eventuais complicações de interface e de compatibilidade. Caso se utilizasse um microprocessador ao invés de um microcontrolador, elementos externos deveriam ser adicionados para prover as funcionalidades fornecidas pelos periféricos e memória, porém, quando baseados em processadores dedicados, geralmente, os sistemas possuem maior performance computacional, em relação a sistemas baseados em microcontrolador, isto é devido ao hardware dedicado e otimizado para processamento, logo, o projetista deverá analisar se o esforço de implementação compensará o ganho computacional ao decidir a abordagem que deve seguir.
+Na escolha de um microcontrolador, destacam-se alguns fatores importantes, \cite[p.8]{Chatto2013}, apresentados a seguir: 
+\begin{itemize}
+    \item Velocidade do microcontrolador:
+    deve ser suficiente para o processamento requerido.
+    \item Tamanho e encapsulamento do chip:
+    pode interferir no tamanho do dispositivo final. 
+    \item Espaço de memória:
+    deve ser suficiente para armazenar a memória do sistema.
+    \item Custo unitário do chip:
+    não deve ser proibitivo para o custo do sistema.
+    \item Recursos da plataforma de desenvolvimento:
+    recursos podem ajudar no desenvolvimento do sistema, como por exemplo o recurso de debugging.
+    \item Disponibilidade do chip no mercado:
+    em um produto comercial pode implicar em maiores custos para manutenção e custos de produção.
+\end{itemize}
 
-A~\ref{tab:quadrosinotico} resume as principais características dos métodos de localização apresentados neste capítulo: o método de cálculo, a participação do MS no cálculo da posição, a quantidade mínima de setores requerida para calcular a posição do MS e os elementos adicionais necessários na rede de acesso rádio~(RAN - \textit{Radio Access Network}). A última coluna informa se o método depende de condições de propagação LOS entre o MS e as células de referência - ou os satélites, no caso do método AGPS - para não sofrer degradação da acurácia de localização.
+Pode-se citar também como fator importante na escolha de um microcontrolador, a questão dos periféricos encontrados no chip, estes devem englobar os periféricos necessários para a implementação do sistema, ou, pelo menos que os periféricos faltantes possam ter sua funcionalidade implementada de uma outra maneira.
 
-Como a precisão de um método de localização é fortemente dependente das características específicas da rede onde o mesmo será utilizado - largura de banda, resolução temporal, densidade superficial de setores, ambiente de propagação, etc. - optou-se por não inserir na~\ref{tab:quadrosinotico} valores genéricos de precisão, como os fornecidos em~\cite{WlanLocationMethodsSurvey}.
+\paragraph{\textbf{Periféricos do Microcontrolador -}}
+Um sistema embarcado, com sua característica de comunicação com o mundo exterior, necessita de periféricos. Os periféricos internos ao chip do microcontrolador são recursos implementados em hardware que podem ser utilizados por meio do software dentro do microcontrolador. Por exemplo, existem periféricos relacionados a comunicação, levantamento de interrupções (possibilitando tratamento de eventos esporádicos no sistema), temporização, contagem de eventos, leitura de dados analógicos, modulação de largura de pulso (possibilitando a geração de um sinal analógico), dentre outros periféricos mais específicos, internos ao chip do microcontrolador, evitando a implementação destes em hardware ou software. Periféricos podem ser adicionados a um sistema embarcado sem que sejam internos ao microcontrolador, a seguir, a fim de descrever alguns dos periféricos internos ao microntrolador, segue-se algumas informações sobre alguns deles.
+\begin{itemize}
+    \item Conversor analógico digital:
+    Este periférico, tem a funcionalidade de interpretar valores analógicos de tensão e então convertê-los para valores digitais, assim, o processador poderá utilizar o dado medido para a aplicação no sistema. Com o grande número de sensores existentes, diversas grandezas, como temperatura ou pressão, podem ser convertidas para sinais de tensão e serem utilizadas pelo sistema por meio da utilização deste periférico.
+    \item Timer:
+    Um temporizador em hardware, de forma que seu funcionamento é independentemente da execução do software, o que permite maior robustez na medição de tempo. Um timer possui um tamanho máximo de contagem, e possui também registradores que armazenam o valor atual desta contagem. Quando o valor máximo de contagem for estourado, o timer pode gerar uma interrupção, produzindo uma rotina de tratamento de interrupção de estouro de timer. Uma aplicação de uso de um timer poderia ser a execução de rotinas periódicas. 
+    \item Comunicação (USART, MSSP):
+    A comunicação é importante pois permite a utilização de mais elementos no sistema atuando em conjunto, de fato, diversos elementos, como sensores, memórias ou displays se utilizam de uma interface de comunicação.  Quanto aos periféricos relacionados, eles existem para diferentes interfaces de comunicação, como SPI, I2C e RS232, por exemplo, que serão descritas mais adiante no texto. Para fim de exemplificação, em alguns microcontroladores PIC, existe um módulo de comunicação serial síncrona que suporta SPI e I2C (módulo MSSP) e um módulo de comunicação serial assíncrona que suporta RS-232 e RS-485 (módulo USART), \cite{pic18:DS39500A}. 
+    \item PWM/Capture/Compare:
+    Este periférico agrupa três possíveis funcionalidades do módulo, que são associadas a módulos de timer e um pino específico do microcontrolador. Em modo Compare, um valor determinado, escrito nos registradores deste módulo, é constantemente comparado com o valor de contagem do timer associado, quando o valor é atingido, ou seja, um tempo determinado se passa, o pino altera de nível lógico ou vai para um nível lógico definido, assim pode-se utilizar este recurso para a geração de um sinal. No modo Capture, algo parecido com o inverso do modo Compare é feito, neste modo, quando uma alteração no estado do pino associado ocorre, o valor da contagem do timer é capturado, assim, se pode medir o tempo entre os eventos no pino. Já o modo PWM permite que um sinal periódico possa ser gerado, através do pino associado, com tempos em nível alto e baixo que respeitam o ciclo de trabalho definido, ou duty cycle, este parâmetro define o tempo que o sinal passará em alto com relação ao período do sinal periódico, assim, por exemplo, um duty cycle de 30\% indica que o sinal passará 30\% do período em nível alto. O PWM é uma sigla que vem de Pulse Width Modulation, ou seja, modulação de largura de pulso, pois gera um trem de pulsos com largura controlada, este periférico pode ser usado como sinal para comandar motores de corrente contínua por exemplo.\cite{pic18:DS39500A}. 
+\end{itemize}
 
-\begin{table}[h]
-\centering
-\caption{\label{tab:quadrosinotico}- Quadro Sinótico dos Métodos de Localização.}
-\vspace*{.1cm}
-\begin{scriptsize}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\textbf{Sigla} & \textbf{Método de Cálculo} & \textbf{Participação} & \textbf{Quant. Mín.} & \textbf{Elem. adicionais} & \textbf{Requer}\\
-& & \textbf{do MS} & \textbf{de Setores} & \textbf{na RAN} & \textbf{LOS ?}\\
-\hline
-AOA	& Triang. por multi-angulação & Baseado & 2	& Conj. de antenas & Sim \\
-& & na Rede & & diretivas & \\
-\hline
-CID	& Identidade da célula	& Baseado & 1	& - & Não\\
-& & na Rede & & & \\
-\hline
-EOTD	& Triang. por multi-lateração &	Assistido ou &	3	& LMUs & Sim \\
-& hiperbólica & Baseado no MS & & & \\
-\hline
-AGPS	& Triang. por multi-lateração & Assistido & 3 & - & Sim \\
-& circular & pelo MS & & & \\
-\hline
-CID+RTT	& Triang. por multi-lateração &	Baseado & 3	& - & Sim \\
-& circular com RTT & na Rede & & & \\
-\hline
-CID+RSS	& Triang. por multi-lateração circular  &	Baseado & 3	& - & Sim \\
-& com perda de propagação & na Rede & & & \\
-\hline
-AOA+RTT	& Híbrido	& Baseado & 1	&  Conj. de antenas & Sim \\
-& & na Rede & & diretivas & \\
-\hline
-AOA+RSS	& Híbrido	& Baseado & 1	&  Conj. de antenas & Sim \\
-& & na Rede & & diretivas& \\
-\hline
-AOA+TDOA	& Híbrido	& Assistido & 2	&  Conj. de antenas & Sim \\
-& & pelo MS & & diretivas& \\
-\hline
-\end{tabular}
-\end{scriptsize}
-\vspace*{-.2cm}
-\end{table}
+Além destes periféricos, um periférico interessante é o de interrupção externa, este possibilita o levantamento de uma interrupção no sistema, que, por sua vez, leva a execução de uma rotina de interrupção. A interrupção, para este periférico, é levantada quando uma mudança de estado de um pino específico acontece, assim, através desta funcionalidade, diversos eventos podem executar uma rotina de tratamento. Interessante dizer que essa interrupção pode ser gerada a qualquer momento, desde que esteja habilitada, bastando para isso que o evento em questão altere o estado do pino específico do microcontrolador.
