@@ -1,0 +1,74 @@
+\section{\textbf{Sistemas Embarcados}}
+\label{sec:SistemasEmbarcados}
+\subsection{Conceitos Básicos}
+
+\subsection{Definição de Sistemas Embarcados}
+\label{subsec:sub01_Definicao}
+
+\subsection{\underline{Características}}
+\label{subsec:sec1_Triangulacao}
+
+As técnicas de triangulação utilizam medidas de distâncias~(multi-lateração) ou ângulos~(multi-angulação) entre o MS e os setores de referência para estimar a localização do MS~\cite{LocationMethodsSurvey2007}.
+
+Todos os métodos de triangulação presumem condições de propagação com linha de visada~(LOS - \textit{Line of Sight}) entre o MS e setores de referência. A propagação por múltiplos percursos e a presença de obstáculos entre o MS e os setores de referência podem corromper as medidas angulares, de tempo e de atenuação no percurso. Assim, a propagação sem linha de visada~(NLOS - \textit{Non Line of Sight}) é a principal fonte de erro para esses métodos. Como a propagação NLOS predomina em ambientes urbanos, a precisão dos métodos de triangulação pode ser seriamente comprometida nesses ambientes.
+
+Além da propagação NLOS, outro fator que limita a precisão dos métodos de triangulação é a resolução finita das medidas realizadas na interface aérea e que são utilizadas no cálculo de posição: tempo, RSS e ângulo de chegada. A resolução da medida de RSS depende de especificações da interface rádio. Em redes GSM e WCDMA, por exemplo, os valores de RSS são reportados pelo MS em passos de $1$ dB~\cite{ETSI100911}~\cite{3GPP25133}. A resolução da medida angular depende da configuração dos conjuntos de antenas diretivas necessários para estimar o ângulo de chegada, bem como do diagrama de irradiação das antenas utilizadas no conjunto~\cite{Rappaport1997}.
+
+\subsubsection{Multi-lateração Circular utilizando RTT}
+Um valor de RTT pode ser convertido em uma estimativa de distância, através da equação~(\ref{eq:dist}). O lugar geométrico dos pontos que distam $\hat{d}_{i}$ da $i$-ésima célula de referência é um círculo de raio $\hat{d}_{i}$ centrado na posição desta célula. Esse círculo define o conjunto dos pontos no plano que contém a possível localização do MS, sendo denominado linha de posição (LOP - \textit{Line of Position}).
+
+\begin{equation}
+\label{eq:dist}
+\hat{d}_{i}= \frac{c \cdot \textrm{T}_{s} \cdot \textrm{RTT}_{i}}{2}
+\end{equation}
+
+A medida de RTT tem resolução igual ao período de um símbolo. Porém, por razões de simplificação, utiliza-se a representação por meio de LOPs circulares, com raio igual ao raio interno no anel circular. Quanto menor o período de símbolo, menor é a largura do anel circular e mais este anel aproxima-se de um círculo. Assim, em sistemas banda larga, como o WCDMA, a utilização de LOPs circulares não introduz erro significativo~\cite{CidRttForcedHandover}.
+
+\section{\textbf{Quadro Sinótico}}
+\label{sec:Cap1Quadro}
+
+A~\ref{tab:quadrosinotico} resume as principais características dos métodos de localização apresentados neste capítulo: o método de cálculo, a participação do MS no cálculo da posição, a quantidade mínima de setores requerida para calcular a posição do MS e os elementos adicionais necessários na rede de acesso rádio~(RAN - \textit{Radio Access Network}). A última coluna informa se o método depende de condições de propagação LOS entre o MS e as células de referência - ou os satélites, no caso do método AGPS - para não sofrer degradação da acurácia de localização.
+
+Como a precisão de um método de localização é fortemente dependente das características específicas da rede onde o mesmo será utilizado - largura de banda, resolução temporal, densidade superficial de setores, ambiente de propagação, etc. - optou-se por não inserir na~\ref{tab:quadrosinotico} valores genéricos de precisão, como os fornecidos em~\cite{WlanLocationMethodsSurvey}.
+
+\begin{table}[h]
+\centering
+\caption{\label{tab:quadrosinotico}- Quadro Sinótico dos Métodos de Localização.}
+\vspace*{.1cm}
+\begin{scriptsize}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Sigla} & \textbf{Método de Cálculo} & \textbf{Participação} & \textbf{Quant. Mín.} & \textbf{Elem. adicionais} & \textbf{Requer}\\
+& & \textbf{do MS} & \textbf{de Setores} & \textbf{na RAN} & \textbf{LOS ?}\\
+\hline
+AOA	& Triang. por multi-angulação & Baseado & 2	& Conj. de antenas & Sim \\
+& & na Rede & & diretivas & \\
+\hline
+CID	& Identidade da célula	& Baseado & 1	& - & Não\\
+& & na Rede & & & \\
+\hline
+EOTD	& Triang. por multi-lateração &	Assistido ou &	3	& LMUs & Sim \\
+& hiperbólica & Baseado no MS & & & \\
+\hline
+AGPS	& Triang. por multi-lateração & Assistido & 3 & - & Sim \\
+& circular & pelo MS & & & \\
+\hline
+CID+RTT	& Triang. por multi-lateração &	Baseado & 3	& - & Sim \\
+& circular com RTT & na Rede & & & \\
+\hline
+CID+RSS	& Triang. por multi-lateração circular  &	Baseado & 3	& - & Sim \\
+& com perda de propagação & na Rede & & & \\
+\hline
+AOA+RTT	& Híbrido	& Baseado & 1	&  Conj. de antenas & Sim \\
+& & na Rede & & diretivas & \\
+\hline
+AOA+RSS	& Híbrido	& Baseado & 1	&  Conj. de antenas & Sim \\
+& & na Rede & & diretivas& \\
+\hline
+AOA+TDOA	& Híbrido	& Assistido & 2	&  Conj. de antenas & Sim \\
+& & pelo MS & & diretivas& \\
+\hline
+\end{tabular}
+\end{scriptsize}
+\vspace*{-.2cm}
+\end{table}
